@@ -5,20 +5,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/g/ggplot/ggplot-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/g/ggplot/ggplot-{{ version }}.tar.gz
   sha256: 48bbc9ea5987f815ad25856d76573506dbfe153ff696f026ce324582af56469f
 
 build:
-  number: 5
+  number: 6
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - six
     - statsmodels
     - brewer2mpl
@@ -30,6 +30,8 @@ requirements:
     - numpy
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - ggplot
 
